@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-paper font-body text-tide-ink antialiased; }
+  * { @apply border-tide-ink/15; }
+  :focus-visible { outline: 3px solid #A65F2A; outline-offset: 3px; }
+  ::selection { background: #D4E9E6; color: #102A36; }
+}
+
+@layer components {
+  .container { @apply mx-auto w-full px-4 sm:px-6 lg:max-w-7xl lg:px-8; }
+  .paper-grain { background-image: radial-gradient(rgba(16, 42, 54, 0.08) 0.55px, transparent 0.7px); background-size: 7px 7px; }
+  .tideline { @apply relative pt-7; }
+  .tideline::before, .tideline::after { content: ""; @apply absolute left-0 h-px w-full bg-tidal-teal; }
+  .tideline::before { @apply top-0 opacity-75; }
+  .tideline::after { @apply top-1 opacity-25; }
+  .catalogue-label { @apply font-body text-[0.6875rem] font-extrabold uppercase tracking-[0.18em] text-tidal-teal; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+}
