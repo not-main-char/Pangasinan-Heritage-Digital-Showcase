@@ -1,15 +1,4 @@
-/**
- * components/atoms/Button.tsx  — ATOM
- * ------------------------------------------------------------------
- * One button, three looks. It is used for links AND for actions.
- *
- *   <Button href="/sites">Browse sites</Button>
- *     -> has an href, so it renders <a href="/sites">  (navigates)
- *
- *   <Button onClick={...}>Open record</Button>
- *     -> no href, so it renders <button>               (does something)
- * ------------------------------------------------------------------
- */
+import Link from "next/link";
 import type { ReactNode } from "react";
 
 type ButtonProps = {
@@ -50,9 +39,9 @@ export function Button({
   // A link navigates to another page...
   if (href) {
     return (
-      <a aria-label={label} className={className} href={href}>
+      <Link aria-label={label} className={className} href={href}>
         {content}
-      </a>
+      </Link>
     );
   }
 
