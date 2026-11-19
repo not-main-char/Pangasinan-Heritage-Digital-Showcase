@@ -1,16 +1,37 @@
-/** Tidal Field Guide — shared shell for all App Router pages. */
+/**
+ * components/layout/SiteFrame.tsx  — LAYOUT
+ * ------------------------------------------------------------------
+ * The frame around every page: header on top, content in the middle,
+ * footer at the bottom. Every route uses it, so the site looks the
+ * same everywhere and the header only has to be written once.
+ * ------------------------------------------------------------------
+ */
 import type { ReactNode } from "react";
 import { HeaderNavigation } from "@/components/organisms";
 
-export function SiteFrame({ children, activeHref }: { children: ReactNode; activeHref: "/" | "/sites" | "/field-notes" }) {
-  return <div className="min-h-screen overflow-x-hidden bg-paper text-tide-ink">
-    <HeaderNavigation activeHref={activeHref} />
-    <main id="main-content" tabIndex={-1}>{children}</main>
-    <footer className="border-t border-tide-ink/15 bg-tide-ink text-paper">
-      <div className="container flex flex-col gap-4 py-8 sm:flex-row sm:items-end sm:justify-between">
-        <p className="font-display text-xl tracking-[-0.03em]">Pangasinan Heritage Digital Showcase</p>
-        <p className="text-xs leading-5 text-paper/70">A concise student field-guide collection for Pangasinan heritage discovery.</p>
-      </div>
-    </footer>
-  </div>;
+export function SiteFrame({
+  children,
+  activeHref,
+}: {
+  children: ReactNode;
+  activeHref: "/" | "/sites" | "/field-notes";
+}) {
+  return (
+    <div className="flex min-h-screen flex-col bg-paper">
+      <HeaderNavigation activeHref={activeHref} />
+
+      <main className="flex-1" id="main-content">
+        {children}
+      </main>
+
+      <footer className="border-t border-tide-ink/15 bg-tide-ink text-paper">
+        <div className="container flex flex-col gap-2 py-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-display text-lg">Pangasinan Heritage Digital Showcase</p>
+          <p className="text-xs text-paper/70">
+            A student field guide to three Pangasinan heritage sites.
+          </p>
+        </div>
+      </footer>
+    </div>
+  );
 }

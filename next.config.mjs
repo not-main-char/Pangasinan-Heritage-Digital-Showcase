@@ -2,7 +2,7 @@
 // This must match your GitHub repository name exactly (case-sensitive).
 // Example: if your repo is github.com/Taluban-Rico/pangasinan-heritage,
 // set repoName = "pangasinan-heritage".
-const repoName = "pangasinan-heritage-digital-showcase";
+const repoName = "Pangasinan-Heritage-Digital-Showcase";
 
 // Only apply the "/repo-name" subpath when building for GitHub Pages deployment
 // (the GitHub Actions workflow sets GITHUB_PAGES=true). Local `npm run dev` and

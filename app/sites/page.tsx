@@ -1,6 +1,17 @@
+import type { Metadata } from "next";
 import { SiteFrame } from "@/components/layout/SiteFrame";
-import { SitesExplorer } from "@/components/pages/SitesExplorer";
+import { SitesPage } from "@/components/pages/SitesPage";
 
-export default function SitesPage() {
-  return <SiteFrame activeHref="/sites"><SitesExplorer /></SiteFrame>;
+/** Route "/sites". */
+export const metadata: Metadata = {
+  title: "Heritage Sites — Pangasinan Heritage Digital Showcase",
+  description: "Search and filter three Pangasinan heritage records by place or category.",
+};
+
+export default function Page() {
+  return (
+    <SiteFrame activeHref="/sites">
+      <SitesPage />
+    </SiteFrame>
+  );
 }

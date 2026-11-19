@@ -1,23 +1,89 @@
 "use client";
-
-/** Tidal Field Guide — global navigation with desktop links and a small-screen disclosure menu. */
 import { useState } from "react";
 import { Icon, Image } from "@/components/atoms";
 import { NavigationItem } from "@/components/molecules";
 
-const items = [{ href: "/", label: "Home" }, { href: "/sites", label: "Sites" }, { href: "/field-notes", label: "Field notes" }];
+const links = [
+  { href: "/", label: "Home" },
+  { href: "/sites", label: "Sites" },
+  { href: "/field-notes", label: "Field notes" },
+];
 
-export function HeaderNavigation({ activeHref = "/" }: { activeHref?: "/" | "/sites" | "/field-notes" }) {
-  const [open, setOpen] = useState(false);
-  return <>
-    <a className="sr-only z-50 bg-tide-ink px-4 py-3 text-sm font-bold text-paper focus:not-sr-only focus:absolute focus:left-4 focus:top-4" href="#main-content">Skip to main content</a>
-    <header className="sticky top-0 z-40 border-b bg-paper/95 backdrop-blur-md">
-      <div className="container flex min-h-[4.75rem] items-center justify-between gap-4">
-        <a aria-label="Pangasinan Heritage Digital Showcase home" className="flex min-h-11 items-center gap-3" href="/"><Image alt="" className="!size-11 object-contain" priority src="/images/pangasinan-contour-mark.png" /><span><span className="block font-display text-[1.35rem] font-semibold tracking-[-0.035em]">Pangasinan</span><span className="mt-1 block text-[0.56rem] font-extrabold uppercase tracking-[0.17em] text-tidal-teal">Heritage field guide</span></span></a>
-        <nav aria-label="Primary navigation" className="hidden items-center gap-7 lg:flex">{items.map((item) => <NavigationItem active={item.href === activeHref} key={item.href} {...item} />)}</nav>
-        <button aria-controls="mobile-navigation" aria-expanded={open} aria-label={open ? "Close navigation menu" : "Open navigation menu"} className="inline-flex size-11 items-center justify-center border bg-white text-tide-ink transition hover:border-tidal-teal hover:text-tidal-teal lg:hidden" onClick={() => setOpen(!open)} type="button"><Icon name={open ? "close" : "menu"} /></button>
-      </div>
-      {open ? <div className="border-t bg-paper lg:hidden" id="mobile-navigation"><nav aria-label="Mobile navigation" className="container flex flex-col py-3">{items.map((item) => <NavigationItem active={item.href === activeHref} className="border-b py-3 text-base last:border-0" key={item.href} {...item} onClick={() => setOpen(false)} />)}</nav></div> : null}
-    </header>
-  </>;
+export function HeaderNavigation({
+  activeHref = "/",
+}: {
+  activeHref?: "/" | "/sites" | "/field-notes";
+}) {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  return (
+    <>
+      {/* Keyboard users can jump straight to the content. */}
+      <a
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-tide-ink focus:px-4 focus:py-3 focus:text-paper"
+        href="#main-content"
+      >
+        Skip to main content
+      </a>
+
+      <header className="sticky top-0 z-40 border-b border-tide-ink/15 bg-paper/95 backdrop-blur">
+        <div className="container flex min-h-[3.25rem] items-center justify-between gap-3">
+          <a className="flex min-h-11 items-center gap-2" href="/">
+            {/* The Image atom is w-full by default, so the ! is needed here to force a small logo. */}
+            <Image
+              alt=""
+              className="!size-7 object-contain"
+              priority
+              src="/images/pangasinan-contour-mark.png"
+            />
+            <span className="whitespace-nowrap font-display text-base leading-none text-tide-ink">Pangasinan</span>
+            <span className="hidden whitespace-nowrap text-[0.55rem] font-bold uppercase leading-none tracking-[0.14em] text-tidal-teal sm:block">
+              Heritage field guide
+            </span>
+          </a>
+
+          {/* Desktop menu */}
+          <nav aria-label="Primary" className="hidden items-center gap-5 lg:flex">
+            {links.map((link) => (
+              <NavigationItem
+                active={link.href === activeHref}
+                href={link.href}
+                key={link.href}
+                label={link.label}
+              />
+            ))}
+          </nav>
+
+          {/* Mobile menu button */}
+          <button
+            aria-controls="mobile-menu"
+            aria-expanded={menuOpen}
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            className="inline-flex size-10 items-center justify-center border border-tide-ink/20 bg-white text-tide-ink lg:hidden"
+            onClick={() => setMenuOpen(!menuOpen)}
+            type="button"
+          >
+            <Icon name={menuOpen ? "close" : "menu"} />
+          </button>
+        </div>
+
+        {/* Mobile menu panel (only rendered when open) */}
+        {menuOpen ? (
+          <div className="border-t border-tide-ink/15 bg-paper lg:hidden" id="mobile-menu">
+            <nav aria-label="Mobile" className="container flex flex-col py-1">
+              {links.map((link) => (
+                <NavigationItem
+                  active={link.href === activeHref}
+                  className="border-b border-tide-ink/10 py-2.5 last:border-0"
+                  href={link.href}
+                  key={link.href}
+                  label={link.label}
+                />
+              ))}
+            </nav>
+          </div>
+        ) : null}
+      </header>
+    </>
+  );
 }

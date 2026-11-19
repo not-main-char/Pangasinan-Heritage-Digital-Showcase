@@ -1,5 +1,6 @@
 node_modules
 .next
+dev.log
 out
 *.tsbuildinfo
 .DS_Store
