@@ -1,8 +1,12 @@
-/**
- * The public address of the deployed website.
- * Change this one line if you ever rename the repository or move to a custom domain.
- */
 export const SITE_URL = "https://not-main-char.github.io/Pangasinan-Heritage-Digital-Showcase";
 
-/** The three page paths, used by the sitemap. */
+export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
 export const PAGE_PATHS = ["/", "/sites", "/field-notes"];
+
+export function withBasePath(path: string): string {
+  if (!path.startsWith("/") || (BASE_PATH && path.startsWith(BASE_PATH))) {
+    return path;
+  }
+  return `${BASE_PATH}${path}`;
+}

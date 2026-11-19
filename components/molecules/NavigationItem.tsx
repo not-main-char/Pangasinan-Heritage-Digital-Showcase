@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function NavigationItem({
   href,
   label,
@@ -10,7 +12,7 @@ export function NavigationItem({
   className?: string;
 }) {
   return (
-    <a
+    <Link
       aria-current={active ? "page" : undefined}
       className={`inline-flex min-h-11 items-center border-b-2 py-2 text-sm font-bold ${
         active
@@ -20,6 +22,6 @@ export function NavigationItem({
       href={href}
     >
       {label}
-    </a>
+    </Link>
   );
 }

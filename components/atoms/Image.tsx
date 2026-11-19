@@ -1,3 +1,5 @@
+import { withBasePath } from "@/lib/site";
+
 export function Image({
   src,
   alt,
@@ -16,7 +18,7 @@ export function Image({
       decoding="async"
       height={600}
       loading={priority ? "eager" : "lazy"}
-      src={src}
+      src={withBasePath(src)}
       width={800}
     />
   );
